@@ -150,7 +150,7 @@
 				drawbone();
 			};
     		
-				action();
+			action();
     			background();
     			drawScore();
     			drawrect();
@@ -216,15 +216,15 @@
 		    // Venom wall
 
 		    if(venomY1> 396 ) {
-		        dyV= -1;
+		        venomY1= -dyV;
 		       };
 
-		    if(venomY1 <=0 ) {
-		        dyV=1; 
+		    if(venomY1 >948 ) {
+		        venomY1= -dxV; 
 		    };
 
 
-		    if (venomX1==(-125) || venomX1==(1120) ) {
+		    if (venomX1==(-125)) {
 		    	venomX1=Math.floor((Math.random() * 1000) + 1);
 		    	venomY1=Math.floor((Math.random() * 750) + 1);
 		    	
