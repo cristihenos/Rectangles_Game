@@ -65,7 +65,7 @@
 	// let Input=prompt("Player Name");
 
 	canvas.addEventListener("touchstart", mouseMoveX);
-	canvas.addEventListener("touchstart", mouseMoveY);
+	canvas.addEventListener("touchmove", mouseMoveY);
 	// canvas.addEventListener("click", distroy);
 	
 		// CONTROLER MOUSE
@@ -76,6 +76,7 @@
 		};
 
 		function mouseMoveX(event) {
+		    console.log(event.touches);
 		    var relativeX = event.clientX-30;
 		    if(relativeX > 0 && relativeX < canvas.width) {
 		        rectX1 = relativeX ;
