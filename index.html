@@ -154,7 +154,7 @@
     			background();
     			drawScore();
     			drawrect();
-    			// drawvenom();
+    			drawvenom();
     			
 
     	// ACTION OF THE ITEM 
@@ -238,7 +238,6 @@
 		    	 	boneX1=(Math.floor((Math.random() * 1000) + 1));
 					boneY1=-(Math.floor((Math.random() * 500) + 1));
 		    	 	SCORE++;
-		    	 	console.log('FITS THE SQUARES !!');
 		    	 }
 		    	 	
 		    	 	else if (rectY1===venomY1 && (rectX1+55)>venomX1 && (rectX1-55)<venomX1 || rectX1===venomX1 && (rectY1+110)>venomY1 && (rectY1-110)<venomY1 || rectY1===venomY1 && rectX1===venomX1 || rectA<venomA ) 
@@ -255,10 +254,7 @@
 					    ctx.fillStyle = "white";
 					    ctx.fillText("GAME OVER ", 370, 250);
 					    ctx.closePath();					    
-					   
-		            // alert("GAME OVER :( Good Job! Your score is:"+score);
-		            // document.location.reload(); // reload the page
-		            // clearInterval(interval); 
+		            clearInterval(interval); 
 		    	 }
 		  			boneLife=true;	
 		    };
