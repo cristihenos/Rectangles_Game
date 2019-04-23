@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="RO">
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-	<title>Match the rectangles </title>
-	
+    <title>Match the rectangles </title>
 </head>
 
 <body>
-
 	<h1>Match the rectangles</h1>
 	<h3>Match the red rectangle with the yellow one and avoid the purple</h3>
 	<button id="star">Start the Game!</button><br><br>
@@ -34,16 +32,13 @@
 	let dxB= 1;
 	let dyB=-1;
 
-
 	let boneX2=250;
 	let boneY2=100;
 	let bone2IMG=new Image();
 
-	
 	let venomIMG=new Image();
 	let venomX1=Math.floor((Math.random() * 500) + 1);
 	let venomY1=Math.floor((Math.random() * 200) + 1);
-	let venomA=venomIMG.width*venomIMG.height;
 	let dxV=1;
 	let dyV=1;
 
@@ -51,7 +46,6 @@
 	let rectX1=350;
 	let rectY1=10;
 	let rectIMG=new Image();
-	let rectA=rectIMG.width*rectIMG.height;
 	
 
 	let IMG_X=0;
@@ -59,22 +53,15 @@
 	let backgroundIMG=new Image();
 
 	SCORE=0;
-	SPEED=1;
 	
-
-	// let Input=prompt("Player Name");
-
 	canvas.addEventListener("mousemove", mouseMoveX);
 	canvas.addEventListener("mousemove", mouseMoveY);
-	// canvas.addEventListener("click", distroy);
 	
 		// CONTROLER MOUSE
 
-		console.log(event.mousemove);
 		function distroy(event) {
 			canvas.style.backgroundColor = 'red';
 		};
-
 
 		function mouseMoveX(event) {
 			console.log(event);
@@ -150,7 +137,7 @@
 				drawbone();
 			};
     		
-			action();
+				action();
     			background();
     			drawScore();
     			drawrect();
@@ -180,7 +167,7 @@
     		// Bone wall
 
 		    if(boneY1> 397) {
-		        dyB= -1;
+		        dyB=-1;
 		       };
 
 		    if(boneY1 <0) {
@@ -216,13 +203,16 @@
 		    // Venom wall
 
 		    if(venomY1> 396 ) {
-		        venomY1= -dyV;
+		        dyV= -1;
 		       };
 
-		    if(venomY1 >948 ) {
-		        venomY1= -dxV; 
+		    if(venomY1 <=0 ) {
+		        dyV=1; 
 		    };
 
+		    if (venomX1>948) {
+		    	dxV=-1;
+		    };
 
 		    if (venomX1==(-125)) {
 		    	venomX1=Math.floor((Math.random() * 1000) + 1);
@@ -238,6 +228,7 @@
 		    	 	boneX1=(Math.floor((Math.random() * 1000) + 1));
 					boneY1=-(Math.floor((Math.random() * 500) + 1));
 		    	 	SCORE++;
+		    	 	console.log('FITS THE SQUARES !!');
 		    	 }
 		    	 	
 		    	 	else if (rectY1===venomY1 && (rectX1+55)>venomX1 && (rectX1-55)<venomX1 || rectX1===venomX1 && (rectY1+110)>venomY1 && (rectY1-110)<venomY1 || rectY1===venomY1 && rectX1===venomX1 || rectA<venomA ) 
@@ -254,9 +245,10 @@
 					    ctx.fillStyle = "white";
 					    ctx.fillText("GAME OVER ", 370, 250);
 					    ctx.closePath();					    
+
 		            clearInterval(interval); 
 		    	 }
-		  			boneLife=true;	
+		  	 boneLife=true;	
 		    };
 		   
 		    
