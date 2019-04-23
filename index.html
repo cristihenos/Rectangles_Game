@@ -70,14 +70,15 @@
 	
 		// CONTROLER MOUSE
 
-
+		console.log(event.mousemove);
 		function distroy(event) {
 			canvas.style.backgroundColor = 'red';
 		};
 
+
 		function mouseMoveX(event) {
-		    console.log(event.touches);
-		    var relativeX = event.clientX-30;
+			console.log(event);
+		    var relativeX = event.clientX-25;
 		    if(relativeX > 0 && relativeX < canvas.width) {
 		        rectX1 = relativeX ;
 		   }
@@ -85,7 +86,7 @@
 		 };
 	
 		function mouseMoveY(event) {
-		    var relativeY = event.clientY-150;
+		    var relativeY = event.clientY-200;
 		    if(relativeY > 0 && relativeY < canvas.height) {
 		        rectY1 = relativeY ;
 		    }
@@ -149,11 +150,11 @@
 				drawbone();
 			};
     		
-			action();
+				action();
+    			background();
     			drawScore();
     			drawrect();
-    			drawvenom();
-			background();
+    			// drawvenom();
     			
 
     	// ACTION OF THE ITEM 
@@ -257,7 +258,7 @@
 					   
 		            // alert("GAME OVER :( Good Job! Your score is:"+score);
 		            // document.location.reload(); // reload the page
-		            clearInterval(interval); 
+		            // clearInterval(interval); 
 		    	 }
 		  			boneLife=true;	
 		    };
