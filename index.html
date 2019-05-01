@@ -178,7 +178,6 @@
 				    				
 					    	}else if (rectLife===0) {
 
-					    			canvas.style.background = '#A4A4A4';
 					    	 	 	ctx.beginPath();
 								    ctx.rect(0,(canvas.height/2),canvas.width,100);
 								    ctx.fillStyle = "black";
@@ -313,7 +312,7 @@
 			        dyV4= -1;
 			       };
 
-			    if(venomY4<=0 ) {
+			    if(venomY4 <=0 ) {
 			        dyV4=1; 
 			    };
 
@@ -397,13 +396,13 @@
 						    	 	};
 		    	 	
 		    	 	}else if (rectX1===venomX1 && rectY1>(venomY1)-100 && rectY1<(venomY1)+100 
-		    	 		|| rectY1===venomY1 && rectX1>venomX1 && rectX1<(venomX1)+50 
-		    	 		|| rectX1===venomX2 && rectY1>venomY2 && rectY1<(venomY2)+100 
-		    	 		|| rectY1===venomY2 && rectX1>venomX2 && rectX1<(venomX2)+50 
-		    	 		|| rectX1===venomX3 && rectY1>venomY3 && rectY1<(venomY3)+100 
-		    	 		|| rectY1===venomY3 && rectX1>venomX3 && rectX1<(venomX3)+50
-		    	 		|| rectX1===venomX4 && rectY1>venomY4 && rectY1<(venomY4)+100 
-		    	 		|| rectY1===venomY4 && rectX1>venomX4 && rectX1<(venomX4)+50) 
+		    	 		|| rectY1===venomY1 && rectX1>(venomX1)-50 && rectX1<(venomX1)+50 
+		    	 		|| rectX1===venomX2 && rectY1>(venomY2)-100 && rectY1<(venomY2)+100 
+		    	 		|| rectY1===venomY2 && rectX1>(venomX2)-50 && rectX1<(venomX2)+50 
+		    	 		|| rectX1===venomX3 && rectY1>(venomY3)-100 && rectY1<(venomY3)+100 
+		    	 		|| rectY1===venomY3 && rectX1>(venomX3)-50 && rectX1<(venomX3)+50
+		    	 		|| rectX1===venomX4 && rectY1>(venomY4)-100 && rectY1<(venomY4)+100 
+		    	 		|| rectY1===venomY4 && rectX1>(venomX4)-50 && rectX1<(venomX4)+50) 
 		    	 	 {
 
 		    	 	 	rectY1=10;
@@ -434,6 +433,7 @@
 		    venomY4+= dyV4;
 
 		};
+
 
 		// Start the function draw with 10 frame/sec
 
