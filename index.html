@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html lang="RO">
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-	<title>Match the rectangles </title>
-	
+    <title>Match the rectangles </title>	
 </head>
-
 <body>
-
 	<h1>Match the rectangles</h1>
 	<h3>Match the red rectangle with the yellow one and avoid the purple</h3>
-	<button id="star">Start the Game!</button><br><br>
-
 	<canvas id="myCanvas" width="1000" height="500"></canvas>
 	<script>
+	window.addEventListener("load", startGame);
 
-	document.querySelector('#star').addEventListener("click", load);
-
-	function load () {
+	function startGame () {
 	let canvas = document.getElementById("myCanvas");
 	canvas.width = window.innerWidth
 	canvas.height = window.innerHeight
@@ -35,7 +29,6 @@
 	let dxB= 1;
 	let dyB=-1;
 
-
 	let boneX2=250;
 	let boneY2=100;
 	let bone2IMG=new Image();
@@ -45,7 +38,6 @@
 	let venomY1=Math.floor((Math.random() * 500) + 1);
 	let dxV=1;
 	let dyV=1;
-
 
 	let venom2=false;
 	let venomIMG2=new Image();
@@ -68,92 +60,88 @@
 	let dxV4=1;
 	let dyV4=1;
 
-
 	let rectLife=3;
-	let rectScoreLife='💖💖💖';
+	let rectScoreLife=undefined;
 	let rectX1=350;
 	let rectY1=10;
 	let rectIMG=new Image();
 	
-	let IMG_X=0;
-	let IMG_Y=0;
-	let backgroundIMG=new Image();
-
 	let SCORE=0;
-	let SPEED=5;
-	
-	canvas.addEventListener("mousemove", mouseMoveX);
-	canvas.addEventListener("mousemove", mouseMoveY);
-	
-		// CONTROLER MOUSE
 
-			function mouseMoveX(event) {
-			    let relativeX = event.clientX-14;
-			    if(relativeX > 0 && relativeX < canvas.width) {
+	let interval=setInterval(draw, 10); // Start the function draw with 10 frame/sec
+
+// MOUSE EVENTS:
+
+	canvas.addEventListener("mousemove", mouseMoveX); canvas.addEventListener("mousemove", mouseMoveY);
+	
+	// Mouse Move X and Y
+			
+	function mouseMoveX(event) {
+		let relativeX = event.clientX-14;
+		if(relativeX > 0 && relativeX < canvas.width) {
 			        rectX1 = relativeX;
-			    }
+			    };
 			       
-			 };
+		};
 		
-			function mouseMoveY(event) {
-			    let relativeY = event.clientY-65;
-			    if(relativeY > 0 && relativeY < canvas.height) {
+	function mouseMoveY(event) {
+		let relativeY = event.clientY-65;
+		if(relativeY > 0 && relativeY < canvas.height) {
 			        rectY1 = relativeY ;
-			    }
+			    };
 
-			 };
+		};
 
+// DRAW CHARACTERS:
 
-		// 	DRAW GAME
-
-			function drawbone() {
-				boneLife=true;
-				ctx.beginPath();
-				boneIMG.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABhCAYAAACUJfLoAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAANyAAADcgBffIlqAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADlSURBVHic7dwxDsEAAIXh16qhHcVgkyauYzUbTA5kNltdRyI2gxhrK4MbiKQ/+b8TvP8Cr2ib8WYyTZ0fdr/lUU2mqZer52Le9t3Qgz5xOZfN8VCcqiSZt3233vbXoUd9Yr/LLBmlHHrItxhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhC8zchVfJ+RHqfCf2ey7lskqT4l3+tFz+dGzm2DfRpAAAAAElFTkSuQmCC';
-				ctx.drawImage(boneIMG,boneX1,boneY1);
-				ctx.closePath();
+	function drawbone() {
+		boneLife=true;
+		ctx.beginPath();
+		boneIMG.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABhCAYAAACUJfLoAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAANyAAADcgBffIlqAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADlSURBVHic7dwxDsEAAIXh16qhHcVgkyauYzUbTA5kNltdRyI2gxhrK4MbiKQ/+b8TvP8Cr2ib8WYyTZ0fdr/lUU2mqZer52Le9t3Qgz5xOZfN8VCcqiSZt3233vbXoUd9Yr/LLBmlHHrItxhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhCYwiNITSG0BhC8zchVfJ+RHqfCf2ey7lskqT4l3+tFz+dGzm2DfRpAAAAAElFTkSuQmCC';
+		ctx.drawImage(boneIMG,boneX1,boneY1);
+		ctx.closePath();
 			};
 
 
-			function drawvenom() {
-				ctx.beginPath();
-				venomIMG.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABkCAYAAADE6GNbAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxwAADscBOJIvdgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAC7SURBVHic7c+xDYMwFADRH/QFFZ2LNClZkWUpab2ALQqGIJIP6d4Ed58t132OpcSL9Wg151jK79q+o2OeOPOIaXTEvzhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0GSPVs88Rnc80qPVG3nUDzG393W1AAAAAElFTkSuQmCC';
-				ctx.drawImage(venomIMG,venomX1,venomY1);
-				ctx.closePath();
-			};
+	function drawvenom() {
+		ctx.beginPath();
+		venomIMG.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABkCAYAAADE6GNbAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxwAADscBOJIvdgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAC7SURBVHic7c+xDYMwFADRH/QFFZ2LNClZkWUpab2ALQqGIJIP6d4Ed58t132OpcSL9Wg151jK79q+o2OeOPOIaXTEvzhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0GSPVs88Rnc80qPVG3nUDzG393W1AAAAAElFTkSuQmCC';
+		ctx.drawImage(venomIMG,venomX1,venomY1);
+		ctx.closePath();
+	};
 			
 
-			function drawrect() {
-			    ctx.beginPath();
-			    rectIMG.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABkCAYAAADE6GNbAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADASURBVHic7c+xDcJAEADB+9MniDqc0JgzAgogcXXE7sA9kMGZIoz0a2mngt029/68VX3jxF6Ze5+qPveq9+iYIx6Zlxwd8S+O0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzR9zWxLxHV0yBFbRP0AlJMQ6U5FAJoAAAAASUVORK5CYII=';
-				ctx.drawImage(rectIMG,rectX1,rectY1);
-			    ctx.closePath();
-			};
+	function drawrect() {
+		ctx.beginPath();
+		rectIMG.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABkCAYAAADE6GNbAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADASURBVHic7c+xDcJAEADB+9MniDqc0JgzAgogcXXE7sA9kMGZIoz0a2mngt029/68VX3jxF6Ze5+qPveq9+iYIx6Zlxwd8S+O0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzR9zWxLxHV0yBFbRP0AlJMQ6U5FAJoAAAAASUVORK5CYII=';
+		ctx.drawImage(rectIMG,rectX1,rectY1);
+		ctx.closePath();
+	};
 
 
-			function drawvenom2(){
-				ctx.beginPath();
-				venomIMG2.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABkCAYAAADE6GNbAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxwAADscBOJIvdgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAC7SURBVHic7c+xDYMwFADRH/QFFZ2LNClZkWUpab2ALQqGIJIP6d4Ed58t132OpcSL9Wg151jK79q+o2OeOPOIaXTEvzhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0GSPVs88Rnc80qPVG3nUDzG393W1AAAAAElFTkSuQmCC';
-				ctx.drawImage(venomIMG2,venomX2,venomY2);
-				ctx.closePath();
-			};
+	function drawvenom2(){
+		ctx.beginPath();
+		venomIMG2.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABkCAYAAADE6GNbAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxwAADscBOJIvdgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAC7SURBVHic7c+xDYMwFADRH/QFFZ2LNClZkWUpab2ALQqGIJIP6d4Ed58t132OpcSL9Wg151jK79q+o2OeOPOIaXTEvzhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0GSPVs88Rnc80qPVG3nUDzG393W1AAAAAElFTkSuQmCC';
+		ctx.drawImage(venomIMG2,venomX2,venomY2);
+		ctx.closePath();
+	};
 
-			function drawvenom3(){
-				ctx.beginPath();
-				venomIMG3.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABkCAYAAADE6GNbAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxwAADscBOJIvdgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAC7SURBVHic7c+xDYMwFADRH/QFFZ2LNClZkWUpab2ALQqGIJIP6d4Ed58t132OpcSL9Wg151jK79q+o2OeOPOIaXTEvzhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0GSPVs88Rnc80qPVG3nUDzG393W1AAAAAElFTkSuQmCC';
-				ctx.drawImage(venomIMG3,venomX3,venomY3);
-				ctx.closePath();
-			};
+	function drawvenom3(){
+		ctx.beginPath();
+		venomIMG3.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABkCAYAAADE6GNbAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxwAADscBOJIvdgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAC7SURBVHic7c+xDYMwFADRH/QFFZ2LNClZkWUpab2ALQqGIJIP6d4Ed58t132OpcSL9Wg151jK79q+o2OeOPOIaXTEvzhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0GSPVs88Rnc80qPVG3nUDzG393W1AAAAAElFTkSuQmCC';
+		ctx.drawImage(venomIMG3,venomX3,venomY3);
+		ctx.closePath();
+	};
 
 
-			function drawvenom4(){
-				ctx.beginPath();
-				venomIMG4.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABkCAYAAADE6GNbAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxwAADscBOJIvdgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAC7SURBVHic7c+xDYMwFADRH/QFFZ2LNClZkWUpab2ALQqGIJIP6d4Ed58t132OpcSL9Wg151jK79q+o2OeOPOIaXTEvzhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0GSPVs88Rnc80qPVG3nUDzG393W1AAAAAElFTkSuQmCC';
-				ctx.drawImage(venomIMG4,venomX4,venomY4);
-				ctx.closePath();
-			};
+	function drawvenom4(){
+		ctx.beginPath();
+		venomIMG4.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABkCAYAAADE6GNbAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxwAADscBOJIvdgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAC7SURBVHic7c+xDYMwFADRH/QFFZ2LNClZkWUpab2ALQqGIJIP6d4Ed58t132OpcSL9Wg151jK79q+o2OeOPOIaXTEvzhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0DhC4wiNIzSO0GSPVs88Rnc80qPVG3nUDzG393W1AAAAAElFTkSuQmCC';
+		ctx.drawImage(venomIMG4,venomX4,venomY4);
+		ctx.closePath();
+	};
 
-			function drawScore() {
+	function drawScore() {
 				ctx.beginPath();
 			    ctx.font = "16px Arial";
 			    ctx.fillStyle = "black";
@@ -161,11 +149,11 @@
 			    ctx.fillText(rectScoreLife , 10, 20);
 			    ctx.closePath();
 
-			  if (rectLife===5) {
+		if (rectLife===5) {
 			    	rectScoreLife='💖💖💖💖💖';
 
 			    }else if (rectLife===4) {
-			    		rectScoreLife='💖💖💖💖';
+			    		 rectScoreLife='💖💖💖💖';
 
 			  	  }else if (rectLife===3) {
 			    			rectScoreLife='💖💖💖';
@@ -177,7 +165,8 @@
 				    				rectScoreLife='💖';
 				    				
 					    	}else if (rectLife===0) {
-
+					    			
+					    			// DRAW GAME OVER
 					    	 	 	ctx.beginPath();
 								    ctx.rect(0,(canvas.height/2),canvas.width,100);
 								    ctx.fillStyle = "black";
@@ -188,258 +177,223 @@
 								    ctx.font = "40px Arial";
 								    ctx.fillStyle = "white";
 								    ctx.fillText("GAME OVER ",(canvas.width/5),(canvas.height/1.75));
-								    ctx.closePath();					    
+								    ctx.closePath();
 
+								    // END OF THE GAME
 					            	clearInterval(interval); 
-		    	 				};	
-							};
+		    					};	
+		}; // function drawScore
 
+	function draw() {
+				
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-			function draw() {
-				ctx.clearRect(0, 0, canvas.width, canvas.height);
+		if (boneLife===true) {
+			drawbone();
+		};
 
-				if (boneLife===true) {
-					drawbone();
-				};
+	    if (venom2===true) {
+	    	drawvenom2();
+	    };
 
-	    		if (venom2===true) {
-	    			drawvenom2();
-	    		};
+	    if (venom3===true) {
+	    	drawvenom3();
+	    };
 
-	    		if (venom3===true) {
-	    			drawvenom3();
-	    		};
+	    if (venom4===true) {
+	    	drawvenom4();
+	    };
+			action();
+	    	drawScore();
+	    	drawrect();
+	    	drawvenom();
 
-	    		if (venom4===true) {
-	    			drawvenom4();
-	    		};
-					action();
-	    			drawScore();
-	    			drawrect();
-	    			drawvenom();
+ // CHARACTERS CONDITIONS:
 
-    	// ACTION OF THE ITEM 
+    // rect wall
+	    if (rectY1>canvas.height){
+	    	rectY1= canvas.height+dy;
+	    };
 
-    		// Controler rect
+	    if (rectY1<0){
+	    	rectY1= rectY1+dy;
+	    };
 
-	    		if (rectY1>canvas.height){
-	    			rectY1= canvas.height+dy;
-	    		};
+	    if (rectX1>canvas.width){
+	    	rectX1=canvas.width-dx;
+	    };
 
-	    		if (rectY1<0){
-	    			rectY1= rectY1+dy;
-	    		};
+	    if (rectX1<0){
+	    	rectX1=+dx;
+	    };
 
-	    		if (rectX1>canvas.width){
-	    			rectX1=canvas.width-dx;
-	    		};
+    // Bone wall
+		 if(boneY1+100> canvas.height) {
+			dyB=-1;
+		};
 
-	    		if (rectX1<0){
-	    			rectX1=+dx;
-	    		};
+		if(boneY1 <0) {
+			dyB=1;       
+		};
 
-    		// Bone wall
+		if (boneX1==(-105) || boneX1==1000) {
+			boneX1=Math.floor((Math.random() * -100) + 1);
+			boneY1=Math.floor((Math.random() * 500) + 1);    	
+		};
 
-			    if(boneY1+100> canvas.height) {
-			        dyB=-1;
-			       };
+	//  Venom  wall
+		if((venomY1+100)>canvas.height ) {
+			dyV= -1;
+		};
 
-			    if(boneY1 <0) {
-			        dyB=1;
-			       
-			    };
+		if(venomY1 <=0 ) {
+			dyV=1; 
+		};
 
-			    if (boneX1==(-105) || boneX1==1000) {
-			    	boneX1=Math.floor((Math.random() * -100) + 1);
-			    	boneY1=Math.floor((Math.random() * 500) + 1);
-			    	
-			    };
+		if ((venomX1+50)>canvas.width) {
+			dxV=-1;
+		};
 
-		    //  Venom 1,2,3,4 wall
+		if (venomX1<=0){
+			dxV=+1;
+		};
 
-			    if((venomY1+100)>canvas.height ) {
-			        dyV= -1;
-			       };
+	// Venom 2 wall
+		if((venomY2+100)>canvas.height ) {
+			dyV2= -1;
+		};
 
-			    if(venomY1 <=0 ) {
-			        dyV=1; 
-			    };
+		if(venomY2 <=0 ) {
+			dyV2=1; 
+		};
 
-			    if ((venomX1+50)>canvas.width) {
-			    	dxV=-1;
-			    };
+		if ((venomX2+50)>canvas.width) {
+			dxV2=-1;
+		};
 
-			    if (venomX1<=0){
-			    	dxV=+1;
-			    }
+		if (venomX2<=0){
+			dxV2=+1;
+		};
 
-			  // Venom 2
-			     if((venomY2+100)>canvas.height ) {
-			        dyV2= -1;
-			       };
+	// Venom 3 wall
+		if((venomY3+100)>canvas.height ) {
+			dyV3= -1;
+		};
 
-			    if(venomY2 <=0 ) {
-			        dyV2=1; 
-			    };
+		if(venomY3 <=0 ) {
+			dyV3=1; 
+		};
 
-			    if ((venomX2+50)>canvas.width) {
-			    	dxV2=-1;
-			    };
+		if ((venomX3+50)>canvas.width) {
+			dxV3=-1;
+		};
 
-			    if (venomX2<=0){
-			    	dxV2=+1;
-			    }
+		if (venomX3<=0){
+			dxV3=+1;
+		};
 
-			  // Venom 3
-			     if((venomY3+100)>canvas.height ) {
-			        dyV3= -1;
-			       };
+	// Venom 4 wall
+		if((venomY4+100)>canvas.height ) {
+			dyV4= -1;
+		};
 
-			    if(venomY3 <=0 ) {
-			        dyV3=1; 
-			    };
+		if(venomY4 <=0 ) {
+			dyV4=1; 
+		};
 
-			    if ((venomX3+50)>canvas.width) {
-			    	dxV3=-1;
-			    };
+		if ((venomX4+50)>canvas.width) {
+			dxV4=-1;
+		};
 
-			    if (venomX3<=0){
-			    	dxV3=+1;
-			    }
-
-			   // Venom 4
-			     if((venomY4+100)>canvas.height ) {
-			        dyV4= -1;
-			       };
-
-			    if(venomY4 <=0 ) {
-			        dyV4=1; 
-			    };
-
-			    if ((venomX4+50)>canvas.width) {
-			    	dxV4=-1;
-			    };
-
-			    if (venomX4<=0){
-			    	dxV4=+1;
-			    }
+		if (venomX4<=0){
+			dxV4=+1;
+		};
 		  
-		    // GAME ACTION 
+// GAME ACTION:
 
-		    function action () {
-		    	 if(rectX1===boneX1 && (rectY1+5)>boneY1 && (rectY1-5)<boneY1 ) {
+	function action () {
+		 if(rectX1===boneX1 && (rectY1+15)>boneY1 && (rectY1-15)<boneY1 ) {
 		    	 	boneX1=(Math.floor((Math.random() * 1000) + 1));
 					boneY1=-(Math.floor((Math.random() * -500) + 1));
 		    	 	SCORE++;
+		    	 	boneLife=true;	
 				    	 	
-					if (SCORE>1 && rectY1>venomY1) {
-							    	 dyV=5;
-							    	 dxV=-5;
-
-						}else if (SCORE>1 && rectY1<venomY1) {
-										dyV=-5;
-										dxV=5;
-
-							}else if (SCORE>1 && rectX1<venomX1) {
-											dyV=5;	
-											dxV=-5;
-
-								 }else if (SCORE>1 && rectX1>venomX1) {
-											dxV=5;
-											dyV=-5;
+		if (SCORE>1 && rectY1>venomY1) {
+					 dyV=5; dxV=-5;
+					 
+			}else if (SCORE>1 && rectY1<venomY1) {
+						dyV=-5; dxV=5;
+						
+					}else if (SCORE>1 && rectX1<venomX1) {
+							dyV=5; dxV=-5;
+											
+							 }else if (SCORE>1 && rectX1>venomX1) {
+									dxV=5; dyV=-5;											
 									};
 						
 
-								if (SCORE>1 && rectX1<venomX2) {
-											    dxV2=-5;	
+		if (SCORE>1 && rectX1<venomX2) {
+				dxV2=-5;	
 											    
-									}else if (SCORE>1 && rectX1>venomX2) {
-													dxV2=5;
-													
-									};
-
-										if (SCORE>1 && rectX1<venomX3) {
-											    dxV3=5;	
-											    
-											}else if (SCORE>1 && rectX1>venomX3) {
-													dxV3=-5;
-													
-											};
-
-												if (SCORE>1 && rectX1<venomX4) {
-											   			 		dyV4=5;	
-											    
-												}else if (SCORE>1 && rectX1>venomX4) {
-																dxV4=5;
-													
-											};
-
-						    	 if (SCORE===20) {
-						    	 		rectLife++;
-						    	 		rectScoreLife=rectScoreLife+'💖';
-						    	 	};
-
-						    	 if (SCORE>2) {
-						    	 		venom2=true;
-						    	 			
-						    	 	};
-
-						    	 if (SCORE>7) {
-						    	 		venom3=true;
-						    	 			
-						    	 	};
-
-
-						    	 if (SCORE>15) {
-						    	 		venom4=true;
-						    	 			
-						    	 	};
-		    	 	
-		    	 	}else if (rectX1===venomX1 && rectY1>(venomY1)-100 && rectY1<(venomY1)+100 
-		    	 		|| rectY1===venomY1 && rectX1>(venomX1)-50 && rectX1<(venomX1)+50 
-		    	 		|| rectX1===venomX2 && rectY1>(venomY2)-100 && rectY1<(venomY2)+100 
-		    	 		|| rectY1===venomY2 && rectX1>(venomX2)-50 && rectX1<(venomX2)+50 
-		    	 		|| rectX1===venomX3 && rectY1>(venomY3)-100 && rectY1<(venomY3)+100 
-		    	 		|| rectY1===venomY3 && rectX1>(venomX3)-50 && rectX1<(venomX3)+50
-		    	 		|| rectX1===venomX4 && rectY1>(venomY4)-100 && rectY1<(venomY4)+100 
-		    	 		|| rectY1===venomY4 && rectX1>(venomX4)-50 && rectX1<(venomX4)+50) 
-		    	 	 {
-
-		    	 	 	rectY1=10;
-		    	 	 	rectX1=20;
-		    	 	 	rectLife--;
-		    	 		
-		    	 }
-		  			boneLife=true;	
-		    };
-		   
-		    
-		    rectX1 += 0;
-		    rectY1 += 0;
-
-		    boneX1+= dxB;
-		    boneY1+= dyB;
-
-		    venomX1+= dxV;
-		    venomY1+= dyV;
-
-		    venomX2+= dxV2;
-		    venomY2+= dyV2;
-
-		    venomX3+= dxV3;
-		    venomY3+= dyV3;
-
-		    venomX4+= dxV4;
-		    venomY4+= dyV4;
-
+			}else if (SCORE>1 && rectX1>venomX2) {
+					   	dxV2=5;													
 		};
 
+		if (SCORE>1 && rectX1<venomX3) {
+				dxV3=5;	
+											    
+				}else if (SCORE>1 && rectX1>venomX3) {
+						dxV3=-5;										
+		};
 
-		// Start the function draw with 10 frame/sec
+		if (SCORE>1 && rectX1<venomX4) {
+				dyV4=5;	
+											    
+				}else if (SCORE>1 && rectX1>venomX4) {
+						dxV4=5;										
+		};
 
-		let interval=setInterval(draw, 12);
+		if (SCORE===20) {
+				rectLife++;
+				rectScoreLife=rectScoreLife+'💖';
+		};
 
-	};
+		if (SCORE>2) {
+				venom2=true;						    	 			
+		};
+
+		if (SCORE>7) {
+				 venom3=true;						    	 			
+		};
+
+		if (SCORE>15) {
+				venom4=true;					    	 			
+	 	};
+		    	 	
+	}; // if of function action 
+
+		if (rectX1===venomX1&&rectY1+rectIMG.height>=venomY1&& venomY1+venomIMG.height>=rectY1
+		    || rectY1===venomY1&&rectX1+rectIMG.width >=venomX1&&venomX1+venomIMG.width>=rectX1
+		    || rectX1===venomX2&&rectY1+rectIMG.height>=venomY2&&venomY2+venomIMG2.height>=rectY1
+		    || rectY1===venomY2&&rectX1+rectIMG.width>=venomX2&&venomX2+venomIMG2.width>=rectX1
+		    || rectX1===venomX3&&rectY1+rectIMG.height>=venomY3&&venomY3+venomIMG3.height>=rectY1
+		    || rectY1===venomY3&&rectX1+rectIMG.width>=venomX3&&venomX3+venomIMG3.width>=rectX1
+		    || rectX1===venomX4&&rectY1+rectIMG.height>=venomY4&&venomY4+venomIMG4.height>=rectY1
+		    || rectY1===venomY4&&rectX1+rectIMG.width>=venomX4&&venomX4+venomIMG4.width>=rectX1)
+		    {
+
+		    	rectY1=10; rectX1=20; rectLife--;
+		    	 	 	
+			};
+		  		
+		}; // function action 
+		   
+		    rectX1 += 0; rectY1 += 0; boneX1+= dxB; boneY1+= dyB; venomX1+= dxV; venomY1+= dyV;
+		    venomX2+= dxV2; venomY2+= dyV2; venomX3+= dxV3; venomY3+= dyV3; venomX4+= dxV4; venomY4+= dyV4;
+		    
+		}; // function draw
+
+	}; //  startGame
 
 	</script><br>
 
