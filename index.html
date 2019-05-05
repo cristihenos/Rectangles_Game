@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="RO">
 <head>
-    <meta charset="utf-8">
+	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <title>Match the rectangles </title>	
+	<title>Match the rectangles </title>
+	
 </head>
+
 <body>
+
 	<h1>Match the rectangles</h1>
 	<h3>Match the red rectangle with the yellow one and avoid the purple</h3>
+
 	<canvas id="myCanvas" width="1000" height="500"></canvas>
 	<script>
+
 	window.addEventListener("load", startGame);
 
 	function startGame () {
@@ -67,12 +72,15 @@
 	let rectIMG=new Image();
 	
 	let SCORE=0;
+	let GAMETIME=0;
+	let MEDAL='🐰';
 
 	let interval=setInterval(draw, 10); // Start the function draw with 10 frame/sec
 
 // MOUSE EVENTS:
 
 	canvas.addEventListener("mousemove", mouseMoveX); canvas.addEventListener("mousemove", mouseMoveY);
+	console.log(GAMETIME);
 	
 	// Mouse Move X and Y
 			
@@ -149,6 +157,13 @@
 			    ctx.fillText(rectScoreLife , 10, 20);
 			    ctx.closePath();
 
+			    ctx.beginPath();
+			    ctx.font = "18px Arial";
+			    ctx.fillStyle = "white";
+			    ctx.fillText("Survivor medal: "+MEDAL, 240, 20);
+			    ctx.closePath();
+
+
 		if (rectLife===5) {
 			    	rectScoreLife='💖💖💖💖💖';
 
@@ -168,7 +183,7 @@
 					    			
 					    			// DRAW GAME OVER
 					    	 	 	ctx.beginPath();
-								    ctx.rect(0,(canvas.height/2),canvas.width,100);
+								    ctx.rect(0,(canvas.height/2),canvas.width,180);
 								    ctx.fillStyle = "black";
 								    ctx.fill();
 								    ctx.closePath();
@@ -176,12 +191,37 @@
 					        		ctx.beginPath();
 								    ctx.font = "40px Arial";
 								    ctx.fillStyle = "white";
-								    ctx.fillText("GAME OVER ",(canvas.width/5),(canvas.height/1.75));
+								    ctx.fillText("GAME OVER",(canvas.width/5),(canvas.height/1.75));
+								    ctx.fillText("MEDAL "+MEDAL,(canvas.width/5),(canvas.height/1.50));
 								    ctx.closePath();
 
 								    // END OF THE GAME
 					            	clearInterval(interval); 
-		    					};	
+		    					};
+		    					
+		if (GAMETIME===1000) {
+			    	MEDAL='🎯';
+
+			 }else if (GAMETIME===2000*2) {
+			    		 MEDAL='🥉';
+
+			    }else if (GAMETIME===2000*3) {
+			    		 MEDAL='🥉🥉';
+
+			  	  }else if (GAMETIME===2000*4) {
+			    			MEDAL='🥈';
+			    	
+			    	}else if (GAMETIME===2000*5) {
+			    				MEDAL='🥈🥈';
+				    			
+				    	}else if (GAMETIME===2000*6) {
+				    				MEDAL='🥇';
+				    				
+					    	}else if (GAMETIME===2000*7) {
+					    				MEDAL='🏆';
+					    			
+		    					};	 //Medal 
+
 		}; // function drawScore
 
 	function draw() {
@@ -312,6 +352,10 @@
 // GAME ACTION:
 
 	function action () {
+
+
+		GAMETIME++;
+		console.log(GAMETIME);
 		 if(rectX1===boneX1 && (rectY1+15)>boneY1 && (rectY1-15)<boneY1 ) {
 		    	 	boneX1=(Math.floor((Math.random() * 1000) + 1));
 					boneY1=-(Math.floor((Math.random() * -500) + 1));
@@ -356,7 +400,12 @@
 		if (SCORE===20) {
 				rectLife++;
 				rectScoreLife=rectScoreLife+'💖';
-		};
+									ctx.beginPath();
+								    ctx.rect(0,50,canvas.width,100);
+								    ctx.fillStyle = "black";
+								    ctx.fill();
+								    ctx.closePath();
+		};	
 
 		if (SCORE>2) {
 				venom2=true;						    	 			
@@ -378,7 +427,7 @@
 		    || rectY1===venomY2&&rectX1+rectIMG.width>=venomX2&&venomX2+venomIMG2.width>=rectX1
 		    || rectX1===venomX3&&rectY1+rectIMG.height>=venomY3&&venomY3+venomIMG3.height>=rectY1
 		    || rectY1===venomY3&&rectX1+rectIMG.width>=venomX3&&venomX3+venomIMG3.width>=rectX1
-		    || rectX1===venomX4&&rectY1+rectIMG.height>=venomY4&&venomY4+venomIMG4.height>=rectY1
+			|| rectX1===venomX4&&rectY1+rectIMG.height>=venomY4&&venomY4+venomIMG4.height>=rectY1
 		    || rectY1===venomY4&&rectX1+rectIMG.width>=venomX4&&venomX4+venomIMG4.width>=rectX1)
 		    {
 
